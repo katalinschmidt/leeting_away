@@ -45,21 +45,13 @@ class Solution:
         94. Binary Tree Inorder Traversal
         https://leetcode.com/problems/binary-tree-inorder-traversal/
         """
-        # Things I know:
-        # Inorder tree traversal == visit left child until there is no more left child / unvisited left child, then move back to root and visit right child & repeat
-        # Stack can help keep track of nodes we need to go back to
-        # Inputs that can complicate things are
-        # Empty trees
-        # Single node trees
-        # Balanced vs. skewed trees - trees with only side (L or R)
-        # Complete vs. incomplete trees
-
         # Create the stack & our results list
         stack = []
         result = []
 
         # Begin at the provided root
         current_node = root
+
         # Traverse until we've exhausted all nodes
         while current_node or stack:
             # Left traversal:
