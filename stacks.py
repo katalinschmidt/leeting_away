@@ -72,6 +72,33 @@ class Solution:
 
         return result
 
+    def longestValidParentheses(self, s: str) -> int:
+        """
+        32. Longest Valid Parentheses
+        https://leetcode.com/problems/longest-valid-parentheses/
+        """
+        longest_substr = 0
+        # Initialize stack with -1, so that it is guaranteed to be less than the index of the first opening parenthesis char
+        stack = [-1]
+
+        for char, i in enumerate(s):
+            # If the given char is an opening parenthesis, track its index
+            if char == "(":
+                stack.append(i)
+            # If the given char is a closing parentheses...
+            else:
+                # Pop the last index (typically, it's corresponding opening parenthesis)
+                stack.pop()
+                # If the stack is empty, it means that there are no unmatched opening parentheses in the stack
+                # and the current closing parenthesis at idx i does not match with any previous opening parentheses.
+                # In this case, we push the current idx to the stack to mark the end of the previous valid substr / the start of a new potential valid substr.
+                if not stack:
+                    stack.append(i)
+                else:
+                    # curr_substr == i - stack[-1]
+                    longest_substr = max(longest_substr, i - stack[-1])
+
+        return longest_substr
 
 class TestStackSolutions(TestCase):
     def testIsValid(self):
@@ -157,6 +184,37 @@ class TestStackSolutions(TestCase):
         for test in test_data:
             print(f"Testing input tree root {test['input'].val}.")
             response = solution.inorderTraversal(test["input"])
+            try:
+                self.assertEqual(response, test["output"])
+            except:
+                print(f"Solution failed! {response} != {test['output']} \n")
+
+    def testLongestValidParentheses(self):
+        test_data = [
+            # Standard tests
+            {
+                "input": "(()",
+                "output": 2
+            },
+            {
+                "input": ")()())",
+                "output": 4
+            },
+            {
+                "input": "",
+                "output": 0
+            },
+            # Edge cases
+            {
+                "input": "()(()",
+                "output": 2
+            },
+        ]
+
+        solution = Solution()
+        for test in test_data:
+            print(f"""Testing input "{test['input']}".""")
+            response = solution.longestValidParentheses(test["input"])
             try:
                 self.assertEqual(response, test["output"])
             except:
