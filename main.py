@@ -5,6 +5,7 @@ STACK_PROBLEMS = {
     "20": "testIsValid",
     "94": "testInorderTraversal",
     "32": "testLongestValidParentheses",
+    "42": "testTrappingRainWater"
 }
 
 def execute():
