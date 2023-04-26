@@ -3,7 +3,6 @@ from unittest import TestCase
 
 
 class Solution:
-
     def trappingRainWater(self, height: List[int]) -> int:
         """
         42. Trapping Rain Water
@@ -43,7 +42,6 @@ class Solution:
 
 
 class TestTwoPointerSolutions(TestCase):
-
     def testTrappingRainWater(self):
         test_data = [
             # Standard tests

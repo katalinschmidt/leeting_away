@@ -1,5 +1,6 @@
 from stacks import TestStackSolutions
 from two_pointers import TestTwoPointerSolutions
+from sliding_window import TestSlidingWindowSolutions
 
 # Map problem numbers to their respective test methods
 PROBLEM_TESTS = {
@@ -8,7 +9,9 @@ PROBLEM_TESTS = {
     "94": ("testInorderTraversal", TestStackSolutions),
     "32": ("testLongestValidParentheses", TestStackSolutions),
     # Two Pointer
-    "42": ("testTrappingRainWater", TestTwoPointerSolutions)
+    "42": ("testTrappingRainWater", TestTwoPointerSolutions),
+    # Sliding Window
+    "239": ("testMaxSlidingWindow", TestSlidingWindowSolutions),
 }
 
 
