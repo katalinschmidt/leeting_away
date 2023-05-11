@@ -13,7 +13,8 @@ PROBLEM_TESTS = {
     # Two Pointer
     "42": ("testTrappingRainWater", TestTwoPointerSolutions),
     # Binary Tree
-    "103": ("testZigzagLevelOrder", TestBinaryTreeSolutions)
+    "103": ("testZigzagLevelOrder", TestBinaryTreeSolutions),
+    "112": ("testHasPathSum", TestBinaryTreeSolutions),
 }
 
 

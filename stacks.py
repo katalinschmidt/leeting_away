@@ -1,6 +1,6 @@
 from typing import Optional, List
 from unittest import TestCase
-from utils import TreeNode
+from utils import TreeNode, create_tree_from_list
 
 
 class Solution:
@@ -208,48 +208,33 @@ class TestStackSolutions(TestCase):
                 print(f"Solution failed! {response} != {test['output']} \n")
 
     def testInorderTraversal(self):
-        # [1, None, 2, 3]
-        tree1 = TreeNode(1)
-        tree1.right = TreeNode(2)
-        tree1.right.left = TreeNode(3)
-
-        # []
-        tree2 = TreeNode(None)
-
-        # [1]
-        tree3 = TreeNode(1)
-
-        # [1, 2, None, 3, None]
-        tree4 = TreeNode(1)
-        tree4.left = TreeNode(2)
-        tree4.right = None
-        tree4.left.left = TreeNode(3)
-        tree4.left.right = None
-
         test_data = [
             # Standard tests
             {
-                "input": tree1,
+                "input": create_tree_from_list([1, None, 2, 3]),
                 "output": [1, 3, 2]
             },
             {
-                "input": tree2,
+                "input": create_tree_from_list([]),
                 "output": []
             },
             {
-                "input": tree3,
+                "input": create_tree_from_list([1]),
                 "output": [1]
             },
             # Edge cases
             {
-                "input": tree4,
+                "input": create_tree_from_list([1, 2, None, 3, None]),
                 "output": [3, 2, 1]
             },
         ]
 
         solution = Solution()
         for test in test_data:
-            print(f"Testing input tree root {test['input'].val}.")
+            if test['input']:
+                print(f"""Testing input {test['input'].val}.""")
+            else:
+                print(f"""Testing input {test['input']}.""")
             response = solution.inorderTraversal(test["input"])
             try:
                 self.assertEqual(response, test["output"])

@@ -1,7 +1,7 @@
 import collections
 from typing import List, Optional
 from unittest import TestCase
-from utils import TreeNode
+from utils import TreeNode, create_tree_from_list
 
 
 class Solution:
@@ -19,7 +19,7 @@ class Solution:
         curr_level = 0
 
         # Instantiate a queue (beginning with the root) to track which nodes we must visit next
-        # while ensuring the zigzag pattern is maintained
+        # (Why queue & not list? -> queue.popleft()'s time complexity O(1) while list.pop(0)'s time complexity is O(n))
         queue = collections.deque([root])
         while queue:
             curr_level_vals = []
@@ -51,38 +51,47 @@ class Solution:
 
         return zigzag_tree_values
 
+    def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
+        """
+        112. Path Sum
+        https://leetcode.com/problems/path-sum/
+        """
+        if root is None:
+            return False
 
+        stack = [(root, root.val)]
 
+        while stack:
+            curr_node, curr_sum = stack.pop()
 
+            # The current node must be a leaf node to return true
+            if curr_sum == targetSum and not curr_node.left and not curr_node.right:
+                return True
+            # If the current node is a leaf, but the sum is not what we desire, subtract its val to back track
+            if curr_sum < targetSum and not curr_node.left and not curr_node.right:
+                curr_sum -= curr_node.val
 
+            if curr_node.left:
+                stack.append((curr_node.left, curr_sum + curr_node.left.val))
+            if curr_node.right:
+                stack.append((curr_node.right, curr_sum + curr_node.right.val))
+
+        return False
 
 class TestBinaryTreeSolutions(TestCase):
     def testZigzagLevelOrder(self):
-        # [3, 9, 20, None, None, 15, 7]
-        tree1 = TreeNode(3)
-        tree1.left = TreeNode(9)
-        tree1.right = TreeNode(20)
-        tree1.right.left = TreeNode(15)
-        tree1.right.right = TreeNode(7)
-
-        # [1]
-        tree2 = TreeNode(1)
-
-        # []
-        tree3 = TreeNode(None)
-
         test_data = [
             # Standard tests
             {
-                "input": tree1,
+                "input": create_tree_from_list([3, 9, 20, None, None, 15, 7]),
                 "output": [[3], [20, 9], [15, 7]]
             },
             {
-                "input": tree2,
+                "input": create_tree_from_list([1]),
                 "output": [[1]]
             },
             {
-                "input": tree3,
+                "input": create_tree_from_list([]),
                 "output": []
             },
             # Edge cases
@@ -90,8 +99,41 @@ class TestBinaryTreeSolutions(TestCase):
 
         solution = Solution()
         for test in test_data:
-            print(f"""Testing input {test['input'].val}.""")
+            if test['input']:
+                print(f"""Testing input {test['input'].val}.""")
+            else:
+                print(f"""Testing input {test['input']}.""")
             response = solution.zigzagLevelOrder(test["input"])
+            try:
+                self.assertEqual(response, test["output"])
+            except:
+                print(f"Solution failed! {response} != {test['output']} \n")
+
+    def testHasPathSum(self):
+        test_data = [
+            # Standard tests
+            {
+                "input": [create_tree_from_list([5, 4, 8, 11, None, 13, 4, 7, 2, None, None, None, 1]), 22],
+                "output": True
+            },
+            {
+                "input": [create_tree_from_list([1, 2, 3]), 5],
+                "output": False
+            },
+            {
+                "input": [create_tree_from_list([]), 0],
+                "output": False
+            },
+            # Edge cases
+        ]
+
+        solution = Solution()
+        for test in test_data:
+            if test['input'][0]:
+                print(f"""Testing input {test['input'][0].val}.""")
+            else:
+                print(f"""Testing input {test['input'][0]}.""")
+            response = solution.hasPathSum(test["input"][0], test["input"][1])
             try:
                 self.assertEqual(response, test["output"])
             except:
