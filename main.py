@@ -12,6 +12,7 @@ PROBLEM_TESTS = {
     "239": ("testMaxSlidingWindow", TestStackSolutions),
     # Two Pointer
     "42": ("testTrappingRainWater", TestTwoPointerSolutions),
+    "643": ("testFindMaxAverage", TestTwoPointerSolutions),
     # Binary Tree
     "103": ("testZigzagLevelOrder", TestBinaryTreeSolutions),
     "112": ("testHasPathSum", TestBinaryTreeSolutions),

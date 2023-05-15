@@ -40,6 +40,13 @@ class Solution:
 
         return h20
 
+    def findMaxAverage(self, nums: List[int], k: int) -> float:
+        """
+        643. Maximum Average Subarray I
+        https://leetcode.com/problems/maximum-average-subarray-i/
+        """
+        pass
+
 
 class TestTwoPointerSolutions(TestCase):
     def testTrappingRainWater(self):
@@ -76,3 +83,6 @@ class TestTwoPointerSolutions(TestCase):
                 self.assertEqual(response, test["output"])
             except:
                 print(f"Solution failed! {response} != {test['output']} \n")
+
+    def testFindMaxAverage(self):
+        pass
