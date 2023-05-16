@@ -45,7 +45,19 @@ class Solution:
         643. Maximum Average Subarray I
         https://leetcode.com/problems/maximum-average-subarray-i/
         """
-        pass
+        # Initialize window to first subarray of size k
+        window_sum = sum(nums[:k])
+        max_sum = window_sum
+
+        # Iterate over remaining elements in array
+        for i in range(k, len(nums)):
+            # Increment window by adding current el of the new window & removing first el of the prev window
+            window_sum += nums[i] - nums[i - k]
+            # Update max sum with the greater of the two
+            max_sum = max(max_sum, window_sum)
+
+        # Return avg
+        return max_sum / k
 
 
 class TestTwoPointerSolutions(TestCase):
@@ -85,4 +97,40 @@ class TestTwoPointerSolutions(TestCase):
                 print(f"Solution failed! {response} != {test['output']} \n")
 
     def testFindMaxAverage(self):
-        pass
+        test_data = [
+            # Standard tests
+            {
+                "input": [[1, 12, -5, -6, 50, 3], 4],
+                "output": 12.75000
+            },
+            {
+                "input": [[5], 1],
+                "output": 5.00000
+            },
+            # Edge cases
+            {
+                "input": [[-1, -2, -3, -4], 2],
+                "output": -1.50000
+            },
+            {
+                "input": [[1, 2, 3, 4], 3],
+                "output": 3.00000
+            },
+            {
+                "input": [[1, -2, 3, -4], 2],
+                "output": 0.50000
+            },
+            {
+                "input": [[4, 0, 3, 1], 2],
+                "output": 2.00000
+            }
+        ]
+
+        solution = Solution()
+        for test in test_data:
+            print(f"""Testing input {test['input'][0]}.""")
+            response = solution.findMaxAverage(test["input"][0], test["input"][1])
+            try:
+                self.assertEqual(response, test["output"])
+            except:
+                print(f"Solution failed! {response} != {test['output']} \n")
